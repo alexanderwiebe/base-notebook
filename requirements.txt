@@ -1,4 +1,17 @@
+# jupyter / notebook
 jupyterlab
 ipykernel
+ipywidgets
+
+# editor / code quality
 python-dotenv
 nbstripout
+ruff
+nbqa
+
+# science / math
+numpy
+pandas
+matplotlib
+seaborn
+scipy
