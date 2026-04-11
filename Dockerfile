@@ -16,7 +16,7 @@ COPY . .
 
 # Upgrade pip and install Python packages as root
 RUN pip install --upgrade pip \
-    && pip install -r requirements.txt \
+    && pip install ".[dev]" \
     && mkdir -p /usr/local/share/jupyter/lab/settings \
     && cp jupyter/overrides.json /usr/local/share/jupyter/lab/settings/overrides.json
 
