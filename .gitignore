@@ -3,6 +3,11 @@
 ##
 ## Get latest from `dotnet new gitignore`
 
+# Python build artifacts
+*.egg-info/
+__pycache__/
+*.pyc
+
 # dotenv files
 .env
 
