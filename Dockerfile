@@ -8,6 +8,11 @@ RUN apt-get update && apt-get install -y \
     python3-venv \
     && rm -rf /var/lib/apt/lists/*
 
+# Install Quarto CLI
+RUN curl -LO https://quarto.org/download/latest/quarto-linux-amd64.deb \
+    && dpkg -i quarto-linux-amd64.deb \
+    && rm quarto-linux-amd64.deb
+
 # Set up workspace
 WORKDIR /workspace
 

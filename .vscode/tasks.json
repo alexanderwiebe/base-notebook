@@ -47,7 +47,7 @@
     {
       "label": "New Notebook from Template",
       "type": "shell",
-      "command": "cp notebooks/template.ipynb \"notebooks/${input:notebookName}.ipynb\"",
+      "command": "cp \"notebooks/${input:templateChoice}.ipynb\" \"notebooks/${input:notebookName}.ipynb\"",
       "group": "none",
       "problemMatcher": []
     },
@@ -90,12 +90,54 @@
       "problemMatcher": []
     },
 
+    // ── Quarto ───────────────────────────────────────────────────────────────
+
+    {
+      "label": "Quarto Preview",
+      "type": "shell",
+      "command": "quarto preview",
+      "group": "none",
+      "isBackground": true,
+      "problemMatcher": []
+    },
+    {
+      "label": "Quarto Render",
+      "type": "shell",
+      "command": "quarto render",
+      "group": "none",
+      "problemMatcher": []
+    },
+    {
+      "label": "Quarto Render Active File",
+      "type": "shell",
+      "command": "quarto render \"${file}\"",
+      "group": "none",
+      "problemMatcher": []
+    },
+    {
+      "label": "Quarto Publish",
+      "type": "shell",
+      "command": "quarto publish",
+      "group": "none",
+      "problemMatcher": []
+    },
+
     // ── Git / hygiene ────────────────────────────────────────────────────────
 
     {
       "label": "Check nbstripout Status",
       "type": "shell",
       "command": "nbstripout --status",
+      "group": "none",
+      "problemMatcher": []
+    },
+
+    // ── Template ─────────────────────────────────────────────────────────────
+
+    {
+      "label": "Sync from Template",
+      "type": "shell",
+      "command": "git fetch template && git merge template/main --allow-unrelated-histories --no-commit",
       "group": "none",
       "problemMatcher": []
     }
@@ -106,6 +148,17 @@
       "id": "notebookName",
       "type": "promptString",
       "description": "Notebook filename (without .ipynb)"
+    },
+    {
+      "id": "templateChoice",
+      "type": "pickString",
+      "description": "Which notebook template?",
+      "options": [
+        "template",
+        "template_textbook",
+        "template_scratch"
+      ],
+      "default": "template"
     }
   ]
 }

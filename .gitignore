@@ -8,6 +8,10 @@
 __pycache__/
 *.pyc
 
+# Quarto
+_site/
+/.quarto/
+
 # dotenv files
 .env
 
@@ -487,3 +491,5 @@ $RECYCLE.BIN/
 
 # Vim temporary swap files
 *.swp
+
+**/*.quarto_ipynb
