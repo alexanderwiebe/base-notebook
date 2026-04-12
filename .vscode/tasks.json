@@ -90,6 +90,38 @@
       "problemMatcher": []
     },
 
+    // ── Quarto ───────────────────────────────────────────────────────────────
+
+    {
+      "label": "Quarto Preview",
+      "type": "shell",
+      "command": "quarto preview",
+      "group": "none",
+      "isBackground": true,
+      "problemMatcher": []
+    },
+    {
+      "label": "Quarto Render",
+      "type": "shell",
+      "command": "quarto render",
+      "group": "none",
+      "problemMatcher": []
+    },
+    {
+      "label": "Quarto Render Active File",
+      "type": "shell",
+      "command": "quarto render \"${file}\"",
+      "group": "none",
+      "problemMatcher": []
+    },
+    {
+      "label": "Quarto Publish",
+      "type": "shell",
+      "command": "quarto publish",
+      "group": "none",
+      "problemMatcher": []
+    },
+
     // ── Git / hygiene ────────────────────────────────────────────────────────
 
     {
