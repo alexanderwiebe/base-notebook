@@ -21,7 +21,7 @@
       }
     }
   },
-  "postCreateCommand": "pip install '.[dev]' && nbstripout --install",
+  "postCreateCommand": "pip install '.[dev]' && pre-commit install",
   "features": {},
   "forwardPorts": [8888],
   "remoteUser": "vscode"
