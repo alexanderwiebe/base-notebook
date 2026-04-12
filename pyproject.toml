@@ -33,6 +33,7 @@ packages = []
 
 [tool.ruff.lint]
 select = ["E", "F", "I"]
+ignore = ["F401"]
 
 [tool.ruff.lint.per-file-ignores]
 "*.ipynb" = ["E402"]
