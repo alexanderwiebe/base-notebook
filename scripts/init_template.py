@@ -6,9 +6,9 @@ registers base-notebook as the 'template' git remote so you can pull
 future updates with 'git fetch template'.
 """
 
+from pathlib import Path
 import re
 import subprocess
-from pathlib import Path
 
 
 TEMPLATE_FILES = [
