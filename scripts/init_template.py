@@ -6,10 +6,9 @@ registers base-notebook as the 'template' git remote so you can pull
 future updates with 'git fetch template'.
 """
 
-from pathlib import Path
 import re
 import subprocess
-
+from pathlib import Path
 
 TEMPLATE_FILES = [
     "pyproject.toml",
@@ -49,8 +48,7 @@ def replace_in_file(path: Path, slug: str, title: str, snake: str) -> bool:
     assert path.exists(), f"Expected file {path} to exist"
     original = path.read_text()
     updated = (
-        original
-        .replace("Base Notebook", title)
+        original.replace("Base Notebook", title)
         .replace("base-notebook", slug)
         .replace("base_notebook", snake)
     )
