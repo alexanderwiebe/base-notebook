@@ -1,3 +1,17 @@
 {
-    "python.defaultInterpreterPath": "/usr/local/bin/python"
+  "python.defaultInterpreterPath": "/usr/local/bin/python",
+  "python.terminal.useEnvFile": true,
+  "editor.formatOnSave": true,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.ruff": "explicit",
+    "source.organizeImports.ruff": "explicit"
+  },
+  "[python]": {
+    "editor.defaultFormatter": "charliermarsh.ruff"
+  },
+  "notebook.formatOnSave.enabled": true,
+  "notebook.codeActionsOnSave": {
+    "source.fixAll.ruff": "explicit",
+    "source.organizeImports.ruff": "explicit"
+  }
 }
