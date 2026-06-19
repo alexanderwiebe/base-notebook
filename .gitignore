@@ -8,6 +8,11 @@
 __pycache__/
 *.pyc
 
+# Jupyter runtime
+.jupyter/
+.jupyter_ystore.db
+notebooks/.ipynb_checkpoints/
+
 # Quarto
 _site/
 /.quarto/
