@@ -75,56 +75,75 @@ Project output settings are in `_quarto.yml`.
 
 ## 🤖 Jupyter MCP Server
 
-The dev container ships with [`jupyter-mcp-server`](https://github.com/datalayer/jupyter-mcp-server) pre-installed. When JupyterLab is running, Claude Code can read cells, execute code, and inspect outputs directly through the `jupyter` MCP tool — no copy-pasting needed.
+The dev container ships with [`jupyter-mcp-server`](https://github.com/datalayer/jupyter-mcp-server) and [`jupyter-collaboration`](https://github.com/jupyterlab/jupyter-collaboration) pre-installed. When JupyterLab is running, Claude Code can read cells, execute code, and inspect outputs directly through the `jupyter` MCP tool — no copy-pasting needed.
 
-**Setup (one time)**
+### Architecture
 
-Copy `template.env` to `.env`. The default token is already set:
+**Claude Code always runs inside the dev container** — not on the host. This means:
+
+- `localhost` inside the container is the container, not the host machine
+- All Python, Jupyter, and MCP dependencies live in the container
+- The host's `~/.claude/` is bind-mounted into the container so Claude Code settings persist across rebuilds
+- The host cannot be configured from within the container — any host-side changes must be made manually on the host
+
+There are two MCP connection modes depending on where Claude Code is running:
+
+| Claude Code location | Transport | Config location |
+|---|---|---|
+| Inside the container | stdio (automatic) | `.claude/settings.json` in this repo |
+| On the host machine | streamable-http via port 4040 | `~/.claude/settings.json` on the host |
+
+### MCP tool capabilities
+
+| Tool | What it does | Requires |
+|---|---|---|
+| `execute_code` | Run arbitrary code on the active kernel | JupyterLab running |
+| `execute_cell` | Run a specific cell by index from a notebook | Notebook open in JupyterLab UI (collaboration session) |
+| `read_notebook` | Read notebook cells and outputs | JupyterLab running |
+
+### Setup (one time)
+
+Copy `template.env` to `.env`:
 
 ```bash
 cp template.env .env
-# JUPYTER_TOKEN=dev  ← already there, change it if you want
+# JUPYTER_TOKEN=dev  ← default, change if needed
 ```
 
-**Starting JupyterLab for MCP**
+### Starting services
 
-Use the VS Code task or the Makefile target — both start Jupyter with the token that `.claude/settings.json` expects:
+Both JupyterLab and the MCP server must be running. Start them in separate terminals:
 
-| Method | Command |
-|--------|---------|
-| VS Code task | `Tasks: Run Task` → **Start Jupyter Lab** |
-| Terminal | `make jupyter` |
-| CLI | `jupyter lab --ip=0.0.0.0 --port=8888 --no-browser --IdentityProvider.token=dev` |
+```bash
+make jupyter       # JupyterLab on port 8888
+make mcp-server    # MCP server on port 4040 (for host access)
+```
 
-**VS Code tasks:**
+Or use the VS Code tasks: **Start Jupyter Lab** and **Start MCP Server (Remote)**.
 
-| Task | Description |
-|------|-------------|
-| Start Jupyter Lab | Start JupyterLab with `JUPYTER_TOKEN` so Claude Code can connect |
-| Show Jupyter Token | Print the current token value for debugging |
+### Connecting Claude Code inside the container
 
-**How it works**
+No action needed. `.claude/settings.json` in this repo registers `jupyter-mcp-server` via stdio automatically when Claude Code starts. Run `/mcp` in Claude Code to confirm the `jupyter` server is listed.
 
-`.claude/settings.json` registers `jupyter-mcp-server` as a project-level MCP server pointed at `localhost:8888`. Claude Code starts the MCP process automatically — the server is available any time JupyterLab is running and inactive otherwise. No manual start/stop needed.
+### Connecting Claude Code from the host machine
 
-**Configuration** (`.claude/settings.json`):
+Port 4040 is forwarded from the container to the host by the devcontainer config. Once the MCP server is running inside the container, add this block to `~/.claude/settings.json` **on the host** (one time, manually):
 
 ```json
 {
   "mcpServers": {
     "jupyter": {
-      "command": "jupyter-mcp-server",
-      "env": {
-        "JUPYTER_URL": "http://localhost:8888",
-        "JUPYTER_TOKEN": "dev",
-        "ALLOW_IMG_OUTPUT": "true"
+      "type": "http",
+      "url": "http://localhost:4040/mcp",
+      "headers": {
+        "Authorization": "Bearer dev"
       }
     }
   }
 }
 ```
 
-Change `JUPYTER_TOKEN` here and in `template.env`/`.env` if you use a different token.
+Restart Claude Code on the host, then run `/mcp` to verify the `jupyter` server connects.
 
 ## 🔑 API Keys
 

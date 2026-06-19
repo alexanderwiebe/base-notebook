@@ -5,6 +5,7 @@ version = "0.1.0"
 dependencies = [
     # jupyter / notebook
     "jupyterlab",
+    "jupyter-collaboration",
     "ipykernel",
     "ipywidgets",
     "python-dotenv",

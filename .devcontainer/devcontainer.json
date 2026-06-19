@@ -31,6 +31,6 @@
   "containerEnv": {
     "JUPYTER_TOKEN": "dev"
   },
-  "forwardPorts": [8888],
+  "forwardPorts": [8888, 4040],
   "remoteUser": "vscode"
 }

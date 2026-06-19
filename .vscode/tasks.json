@@ -14,6 +14,15 @@
       "problemMatcher": []
     },
     {
+      "label": "Start MCP Server (Remote)",
+      "detail": "Expose jupyter-mcp-server over HTTP on port 4040 so host Claude Code can connect without installing anything locally",
+      "type": "shell",
+      "command": "jupyter-mcp-server start --transport=streamable-http --port=4040 --mcp-token=${env:JUPYTER_TOKEN} --jupyter-url=http://localhost:8888 --jupyter-token=${env:JUPYTER_TOKEN}",
+      "group": "none",
+      "isBackground": true,
+      "problemMatcher": []
+    },
+    {
       "label": "Show Jupyter Token",
       "detail": "Print the token used by JupyterLab and the jupyter MCP server",
       "type": "shell",
