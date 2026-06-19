@@ -28,6 +28,9 @@
   "mounts": [
     "source=${localEnv:HOME}/.claude,target=/home/vscode/.claude,type=bind,consistency=cached"
   ],
+  "containerEnv": {
+    "JUPYTER_TOKEN": "dev"
+  },
   "forwardPorts": [8888],
   "remoteUser": "vscode"
 }

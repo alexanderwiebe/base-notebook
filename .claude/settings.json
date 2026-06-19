@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "jupyter": {
+      "command": "jupyter-mcp-server",
+      "env": {
+        "JUPYTER_URL": "http://localhost:8888",
+        "JUPYTER_TOKEN": "dev",
+        "ALLOW_IMG_OUTPUT": "true"
+      }
+    }
+  }
+}

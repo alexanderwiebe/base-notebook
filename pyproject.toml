@@ -22,6 +22,7 @@ dev = [
     "nbqa",
     "nbstripout",
     "pre-commit",
+    "jupyter-mcp-server",
 ]
 
 [build-system]
